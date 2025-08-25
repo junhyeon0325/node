@@ -14,5 +14,7 @@ console.log(path.basename(__filename)); // process_exe.js
 console.log(path.basename(__dirname)); // 02_module
 
 let result = path.format({ dir: "c:/Users/admin", base: ".gitconfig" });
+console.log(result);
+
 result = path.parse("C:/Users/admin/.gitconfig"); // parse는 format과 반대로 보여준다, pathObjec로 보여줌
 console.log(result);

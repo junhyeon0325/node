@@ -1,8 +1,8 @@
 // crypto_exe.js
 // import
 const { rejects } = require("assert");
-const crypto = require("crypto");
 const { create } = require("domain");
+const crypto = require("crypto");
 
 let pass = crypto.createHash("sha512").update("test1234").digest("base64"); // 암호화 방식이 다양하게 있는데 sha512를 사용하겠따, test1234를 암호화를 한거
 // let pass = crypto.createHash("sha512").update("test1234").digest("hex"); // 암호화 방식이 다양하게 있는데 sha512를 사용하겠따
@@ -31,7 +31,7 @@ const createSalt = () => {
 };
 // createSalt();
 // salt 값을 활용해서 평문 -> 암화화문 변경.
-const createCryptoPassword = async (trPw) => {
+/*const createCryptoPassword = async (trPw) => {
   let salt = await createSalt();
   console.log(salt);
   salt =
@@ -51,4 +51,16 @@ const createCryptoPassword = async (trPw) => {
     }
   });
 };
-createCryptoPassword("test1234");
+createCryptoPassword("test1234");*/
+
+const createCryptoPassword = async (trPw) => {
+  let salt = await createSalt(); // salt생성
+  return new Promise((resolve, reject) => {
+    crypto.pbkdf2(trPw, salt, 100000, 64, "sha512", (err, buf) => {
+      if (err) {
+        console.log("err=>", err);
+      }
+      resolve({password: key.toString("base64"), salt});
+    });
+  })
+};
