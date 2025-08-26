@@ -8,3 +8,4 @@ const myUrl = new URL(urlInfo);
 // console.log(myUrl.searchParams.get("pcode"));
 // console.log(myUrl.searchParams.keys()); // 파라미터 key값들을 알 수 있음
 // console.log(myUrl.searchParams.values()); // 파라미터 value값들을 알 수 있음
+  
