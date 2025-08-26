@@ -31,7 +31,7 @@ const createSalt = () => {
 };
 // createSalt();
 // salt 값을 활용해서 평문 -> 암화화문 변경.
-/*const createCryptoPassword = async (trPw) => {
+const createCryptoPassword = async (trPw) => {
   let salt = await createSalt();
   console.log(salt);
   salt =
@@ -51,16 +51,16 @@ const createSalt = () => {
     }
   });
 };
-createCryptoPassword("test1234");*/
+createCryptoPassword("test1234");
 
-const createCryptoPassword = async (trPw) => {
-  let salt = await createSalt(); // salt생성
-  return new Promise((resolve, reject) => {
-    crypto.pbkdf2(trPw, salt, 100000, 64, "sha512", (err, buf) => {
-      if (err) {
-        console.log("err=>", err);
-      }
-      resolve({password: key.toString("base64"), salt});
-    });
-  })
-};
+// const createCryptoPassword = async (trPw) => {
+//   let salt = await createSalt(); // salt생성
+//   return new Promise((resolve, reject) => {
+//     crypto.pbkdf2(trPw, salt, 100000, 64, "sha512", (err, key) => {
+//       if (err) {
+//         console.log("err=>", err);
+//       }
+//       resolve({ password: key.toString("base64"), salt });
+//     });
+//   });
+// };

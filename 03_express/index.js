@@ -1,4 +1,6 @@
 const express = require("express");
+const productRouter = require("./routes/product");
+const salesRouter = require("./routes/product");
 
 const app = express(); // express 인스턴스 생성.
 
@@ -21,6 +23,19 @@ app.get("/json", (req, resp) => {
 app.post("/main", (req, resp) => {
   resp.send("/main 경로를 post 요청방식으로 호출함");
 });
+
+app
+  .route("/customer")
+  .get((req, resp) => {
+    resp.send("고객정보 조회");
+  })
+  .post((req, resp) => {
+    resp.send("고객정보 등록");
+  });
+
+// product, sales 라우팅정보 활용
+app.use("/product", productRouter); // localhost:3000/product/루트경로
+app.use("/sales", salesRouter); // localhost:3000/sales/루트경로
 
 // 서버스타트
 // 매개변수가 2개인데 한개는 포트번호, 한개는 콜백함수
