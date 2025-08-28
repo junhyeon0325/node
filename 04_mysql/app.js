@@ -3,6 +3,9 @@
 const express = require("express");
 const parser = require("body-parser");
 const sql = require("./sql");
+const prodSql = require("./sql/sql"); // {}
+
+// console.log(prodSql["imageList"].query);
 
 const app = express();
 app.use(parser.urlencoded()); // x-www-form-urlencoded 키 벨류 형태
@@ -11,6 +14,20 @@ app.use(parser.json());
 // 라우팅
 app.get("/", (req, resp) => {
   resp.send("/ 실행");
+});
+
+// 상품쿼리
+app.post("/api/:alias", async (req, resp) => {
+  // console.log(req.params.alias); // 파라미터 값이 쿼리문 이름임
+  // console.log(prodSql[req.params.alias].query); // 이렇게하면 파라미터 값에 따라 쿼리문이 달라짐
+  let search = prodSql[req.params.alias].query; // 쿼리문을 search에 넣음
+  let param = req.body.param; // [{product_id:9, type:1, path:test.jpg}]
+  try {
+    let result = await sql.execute(search, param);
+    resp.json(result);
+  } catch (err) {
+    resp.json({ retCode: "Error" });
+  }
 });
 
 // 고객목록
