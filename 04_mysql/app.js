@@ -4,12 +4,14 @@ const express = require("express");
 const parser = require("body-parser");
 const sql = require("./sql");
 const prodSql = require("./sql/sql"); // {}
+const cors = require("cors");
 
 // console.log(prodSql["imageList"].query);
 
 const app = express();
 app.use(parser.urlencoded()); // x-www-form-urlencoded 키 벨류 형태
 app.use(parser.json());
+app.use(cors());
 
 // 라우팅
 app.get("/", (req, resp) => {
